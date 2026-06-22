@@ -33,6 +33,7 @@ import { AuthTemplate } from '../components/templates/AuthTemplate/AuthTemplate'
 // Pages
 import { LoginPage } from '../components/pages/LoginPage/LoginPage'
 import { SignupPage } from '../components/pages/SignupPage/SignupPage'
+import { SessionProvider } from '../api/SessionProvider'
 
 // Configure axe for WCAG 2 AA — region rule enabled (pages have <main> via AuthTemplate)
 const axe = configureAxe({})
@@ -238,7 +239,9 @@ describe('Accessibility — pages', () => {
     it('has no WCAG 2 AA violations', async () => {
       const { container } = render(
         <MemoryRouter>
-          <LoginPage />
+          <SessionProvider>
+            <LoginPage />
+          </SessionProvider>
         </MemoryRouter>
       )
       expect(await axe(container)).toHaveNoViolations()
@@ -249,7 +252,9 @@ describe('Accessibility — pages', () => {
     it('has no WCAG 2 AA violations', async () => {
       const { container } = render(
         <MemoryRouter>
-          <SignupPage />
+          <SessionProvider>
+            <SignupPage />
+          </SessionProvider>
         </MemoryRouter>
       )
       expect(await axe(container)).toHaveNoViolations()
