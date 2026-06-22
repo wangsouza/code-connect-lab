@@ -1,12 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { SignupPage } from './SignupPage'
+import { SessionProvider } from '../../../api/SessionProvider'
 
 describe('SignupPage', () => {
   it('renders the signup form', () => {
     render(
       <MemoryRouter>
-        <SignupPage />
+        <SessionProvider>
+          <SignupPage />
+        </SessionProvider>
       </MemoryRouter>
     )
     expect(screen.getByText('Cadastro')).toBeInTheDocument()
@@ -16,7 +19,9 @@ describe('SignupPage', () => {
   it('renders the banner image', () => {
     render(
       <MemoryRouter>
-        <SignupPage />
+        <SessionProvider>
+          <SignupPage />
+        </SessionProvider>
       </MemoryRouter>
     )
     expect(screen.getByAltText('Mulher desenvolvedora com óculos futuristas')).toBeInTheDocument()
@@ -25,7 +30,9 @@ describe('SignupPage', () => {
   it('renders name, email and password inputs', () => {
     render(
       <MemoryRouter>
-        <SignupPage />
+        <SessionProvider>
+          <SignupPage />
+        </SessionProvider>
       </MemoryRouter>
     )
     expect(screen.getByLabelText('Nome')).toBeInTheDocument()

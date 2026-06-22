@@ -53,4 +53,14 @@ describe('SignupForm', () => {
       rememberMe: false,
     })
   })
+
+  it('renders an error message when provided', () => {
+    renderSignupForm({ error: 'Email já cadastrado' })
+    expect(screen.getByRole('alert')).toHaveTextContent('Email já cadastrado')
+  })
+
+  it('disables the submit button and shows loading label while submitting', () => {
+    renderSignupForm({ isSubmitting: true })
+    expect(screen.getByRole('button', { name: /cadastrando/i })).toBeDisabled()
+  })
 })

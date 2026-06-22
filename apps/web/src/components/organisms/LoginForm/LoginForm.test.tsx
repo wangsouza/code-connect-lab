@@ -50,4 +50,14 @@ describe('LoginForm', () => {
       rememberMe: false,
     })
   })
+
+  it('renders an error message when provided', () => {
+    renderLoginForm({ error: 'Credenciais inválidas' })
+    expect(screen.getByRole('alert')).toHaveTextContent('Credenciais inválidas')
+  })
+
+  it('disables the submit button and shows loading label while submitting', () => {
+    renderLoginForm({ isSubmitting: true })
+    expect(screen.getByRole('button', { name: /entrando/i })).toBeDisabled()
+  })
 })

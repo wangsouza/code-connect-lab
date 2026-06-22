@@ -14,9 +14,11 @@ interface LoginFormData {
 
 interface LoginFormProps {
   onSubmit?: (data: LoginFormData) => void
+  error?: string
+  isSubmitting?: boolean
 }
 
-export function LoginForm({ onSubmit }: LoginFormProps) {
+export function LoginForm({ onSubmit, error, isSubmitting = false }: LoginFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
@@ -64,8 +66,14 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
           </Link>
         </div>
 
-        <Button type="submit">
-          Login →
+        {error && (
+          <p role="alert" className="text-sm text-red-400">
+            {error}
+          </p>
+        )}
+
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Entrando…' : 'Login →'}
         </Button>
       </form>
 

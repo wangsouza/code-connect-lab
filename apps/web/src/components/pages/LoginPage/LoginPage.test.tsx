@@ -1,12 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { LoginPage } from './LoginPage'
+import { SessionProvider } from '../../../api/SessionProvider'
 
 describe('LoginPage', () => {
   it('renders the login form', () => {
     render(
       <MemoryRouter>
-        <LoginPage />
+        <SessionProvider>
+          <LoginPage />
+        </SessionProvider>
       </MemoryRouter>
     )
     expect(screen.getByText('Login')).toBeInTheDocument()
@@ -16,7 +19,9 @@ describe('LoginPage', () => {
   it('renders the banner image', () => {
     render(
       <MemoryRouter>
-        <LoginPage />
+        <SessionProvider>
+          <LoginPage />
+        </SessionProvider>
       </MemoryRouter>
     )
     expect(screen.getByAltText('Mulher desenvolvedora no computador')).toBeInTheDocument()
@@ -25,7 +30,9 @@ describe('LoginPage', () => {
   it('renders email and password inputs', () => {
     render(
       <MemoryRouter>
-        <LoginPage />
+        <SessionProvider>
+          <LoginPage />
+        </SessionProvider>
       </MemoryRouter>
     )
     expect(screen.getByLabelText('Email ou usuário')).toBeInTheDocument()
