@@ -1,0 +1,39 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    branches:
+      - main
+  pull_request_review_comment:
+    types: [created]
+  issue_comment:
+    types: [created]
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Faça uma revisão completa deste Pull Request. Analise:
+            - Qualidade e clareza do código
+            - Possíveis bugs ou problemas de lógica
+            - Segurança (OWASP top 10, injeções, XSS, etc.)
+            - Aderência às convenções do projeto (Atomic Design, REST, Conventional Commits)
+            - Cobertura de testes (todo componente deve ter teste co-localizado)
+            - Performance e boas práticas do React/NestJS
+            Deixe comentários inline nos pontos relevantes e um resumo geral no final.
